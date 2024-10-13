@@ -1,0 +1,70 @@
+name: minio-gael
+version: RELEASE.2024-10-02T17-50-41Z
+base: core24
+summary: MinIO
+description: |
+  MinIO is a High Performance Object Storage released under GNU Affero General Public License v3.0. It is API compatible with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics and application data workloads
+
+grade: stable
+confinement: strict
+
+platforms:
+  arm64:
+  amd64:
+  ppc64el:
+  s390x:
+
+license: "AGPL-3.0-only"
+
+apps:
+  minio-daemon:
+    command: launchers/minio-daemon.sh
+    daemon: simple
+    install-mode: disable
+    plugs:
+      - mount-observe
+      - network
+      - network-bind
+
+  minio:
+    command: launchers/minio.sh
+    plugs:
+      - mount-observe
+      - network
+      - network-bind
+
+  mc:
+    command: launchers/mc.sh
+    plugs:
+      - network
+
+parts:
+  launchers:
+    plugin: dump
+    source: snap/local/launchers
+    organize:
+      'minio-daemon.sh' : launchers/
+      'minio.sh' : launchers/
+      'mc.sh' : launchers/
+    stage:
+      - launchers/minio-daemon.sh
+      - launchers/minio.sh
+      - launchers/mc.sh
+
+  minio-server:
+    plugin: dump
+    source: .
+    override-pull: |
+      wget --quiet https://dl.min.io/server/minio/release/linux-${CRAFT_ARCH_BUILD_FOR}/minio
+      chmod +x ${CRAFT_PART_SRC}/minio
+    build-packages:
+      - wget
+
+  minio-client:
+    plugin: dump
+    source: .
+    override-pull: |
+      wget --quiet https://dl.min.io/client/mc/release/linux-${CRAFT_ARCH_BUILD_FOR}/mc
+      chmod +x ${CRAFT_PART_SRC}/mc
+    build-packages:
+      - wget
