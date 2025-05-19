@@ -23,6 +23,7 @@ apps:
     install-mode: disable
     plugs:
       - mount-observe
+      - system-observe
       - network
       - network-bind
 
@@ -30,6 +31,7 @@ apps:
     command: launchers/minio.sh
     plugs:
       - mount-observe
+      - system-observe
       - network
       - network-bind
 
