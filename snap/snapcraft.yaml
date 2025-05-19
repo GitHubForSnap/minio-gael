@@ -22,16 +22,20 @@ apps:
     daemon: simple
     install-mode: disable
     plugs:
-      - mount-observe
-      - system-observe
+      - mount-observe     # To allow /proc/mounts
+      - block-devices     # To allow /sys/devices/pci...
+      - system-observe    # To allow /proc/vmstat
+      - network-control   # To give capabilities net_admin
       - network
       - network-bind
 
   minio:
     command: launchers/minio.sh
     plugs:
-      - mount-observe
-      - system-observe
+      - mount-observe     # To allow /proc/mounts
+      - block-devices     # To allow /sys/devices/pci...
+      - system-observe    # To allow /proc/vmstat
+      - network-control   # To give capabilities net_admin
       - network
       - network-bind
 

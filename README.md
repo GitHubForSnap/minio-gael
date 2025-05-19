@@ -5,7 +5,9 @@ Read the doc at https://min.io/docs/minio/linux/index.html
 ### Connect the interfaces
 ```
 sudo snap connect minio-gael:mount-observe
+sudo snap connect minio-gael:block-devices
 sudo snap connect minio-gael:system-observe
+sudo snap connect minio-gael:network-control
 ```
 
 ### Configure MinIO daemon (Example)
