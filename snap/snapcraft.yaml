@@ -1,12 +1,12 @@
 name: minio-gael
-version: RELEASE.2025-04-22T22-12-26Z
+version: RELEASE.2025-05-24T17-08-30Z
 base: core24
 summary: MinIO
 description: |
   MinIO is a High Performance Object Storage released under GNU Affero General Public License v3.0. It is API compatible with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics and application data workloads
 
 grade: stable
-confinement: strict
+confinement: classic
 
 platforms:
   arm64:
@@ -21,23 +21,23 @@ apps:
     command: launchers/minio-daemon.sh
     daemon: simple
     install-mode: disable
-    plugs:
-      - mount-observe     # To allow /proc/mounts
-      - block-devices     # To allow /sys/devices/pci...
-      - system-observe    # To allow /proc/vmstat
-      - network-control   # To give capabilities net_admin
-      - network
-      - network-bind
+      #    plugs:
+      #      - mount-observe     # To allow /proc/mounts
+      #      - block-devices     # To allow /sys/devices/pci...
+      #      - system-observe    # To allow /proc/vmstat
+      #      - network-control   # To give capabilities net_admin
+      #      - network
+      #      - network-bind
 
   minio:
     command: launchers/minio.sh
-    plugs:
-      - mount-observe     # To allow /proc/mounts
-      - block-devices     # To allow /sys/devices/pci...
-      - system-observe    # To allow /proc/vmstat
-      - network-control   # To give capabilities net_admin
-      - network
-      - network-bind
+      #    plugs:
+      #      - mount-observe     # To allow /proc/mounts
+      #      - block-devices     # To allow /sys/devices/pci...
+      #      - system-observe    # To allow /proc/vmstat
+      #      - network-control   # To give capabilities net_admin
+      #      - network
+      #      - network-bind
 
   mc:
     command: launchers/mc.sh
