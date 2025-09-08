@@ -2,4 +2,4 @@
 
 * vi snap/snapcraft.yaml
 
-* snapcraft --verbose
+* snapcraft pack --verbose
